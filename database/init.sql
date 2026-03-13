@@ -1,5 +1,5 @@
 -- USERS
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE users (
 );
 
 -- TRACKS
-CREATE TABLE tracks (
+CREATE TABLE IF NOT EXISTS tracks (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     user_id UUID NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE tracks (
 );
 
 -- MODULES
-CREATE TABLE modules (
+CREATE TABLE IF NOT EXISTS modules (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     track_id INTEGER NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE modules (
 );
 
 -- VIDEOS
-CREATE TABLE videos (
+CREATE TABLE IF NOT EXISTS videos (
     id SERIAL PRIMARY KEY,
     url TEXT NOT NULL,
     title VARCHAR(255),
@@ -47,7 +47,7 @@ CREATE TABLE videos (
 );
 
 -- CONTENTS
-CREATE TABLE contents (
+CREATE TABLE IF NOT EXISTS contents (
     id SERIAL PRIMARY KEY,
     path TEXT NOT NULL,
     title VARCHAR(255),
@@ -60,7 +60,7 @@ CREATE TABLE contents (
 );
 
 -- ACTIVITIES
-CREATE TABLE activities (
+CREATE TABLE IF NOT EXISTS activities (
     id SERIAL PRIMARY KEY,
     question TEXT NOT NULL,
     module_id INTEGER NOT NULL,
