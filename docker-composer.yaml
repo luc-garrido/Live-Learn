@@ -1,0 +1,39 @@
+services:
+
+  database:
+    image: postgres:16
+    container_name: project_postgres
+    restart: unless-stopped
+    env_file: ".env"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # backend:
+  #   build: ./backend
+  #   container_name: project_backend
+  #   restart: always
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - database
+  #   environment:
+  #     DATABASE_URL: xxx
+
+  # frontend:
+  #   build: ./frontend
+  #   container_name: project_frontend
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - backend
+
+volumes:
+  postgres_data:
