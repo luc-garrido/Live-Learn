@@ -24,11 +24,17 @@ CREATE TABLE IF NOT EXISTS modules (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     track_id INTEGER NOT NULL,
+    user_id UUID NOT NULL,
     order_index INTEGER,
 
     CONSTRAINT fk_modules_track
         FOREIGN KEY (track_id)
         REFERENCES tracks(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_modules_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
         ON DELETE CASCADE
 );
 
