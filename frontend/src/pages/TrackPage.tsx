@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getModules } from "../services/moduleService";
+import Layout from "../components/Layout";
 
 export default function TrackPage() {
 
@@ -19,26 +20,49 @@ export default function TrackPage() {
   }, [id]);
 
   return (
-    <div>
+
+    <Layout>
 
       <h1>Módulos</h1>
 
-      {modules.length === 0 && (
-        <p>Carregando módulos...</p>
-      )}
+      <div
+        style={{
+          display:"flex",
+          flexDirection:"column",
+          gap:"15px",
+          marginTop:"20px"
+        }}
+      >
 
-      {modules.map((m) => (
-        <div key={m.id}>
+        {modules.map((m:any) => (
 
-          <h3>{m.title}</h3>
+          <div
+            key={m.id}
+            style={{
+              background:"white",
+              padding:"18px",
+              borderRadius:"10px",
+              boxShadow:"0 4px 10px rgba(0,0,0,0.1)",
+              display:"flex",
+              justifyContent:"space-between",
+              alignItems:"center"
+            }}
+          >
 
-          <Link to={`/module/${m.id}`}>
-            Estudar
-          </Link>
+            <h3>{m.title}</h3>
 
-        </div>
-      ))}
+            <Link to={`/module/${m.id}`}>
+              Estudar
+            </Link>
 
-    </div>
+          </div>
+
+        ))}
+
+      </div>
+
+    </Layout>
+
   );
+
 }

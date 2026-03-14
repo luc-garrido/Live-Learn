@@ -1,0 +1,25 @@
+.activity-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid var(--color-secondary);
+  background: var(--color-background);
+  transition: background 0.3s, transform 0.2s;
+}
+
+.activity-card.selected {
+  background-color: var(--color-success);
+  border-left: 4px solid var(--color-primary);
+}
+
+.activity-card:hover {
+  background-color: #d6f1c8;
+}
+
+.checkmark {
+  margin-left: 10px;
+}

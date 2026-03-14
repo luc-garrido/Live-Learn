@@ -1,57 +1,110 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { getContents } from "../services/contentService";
+import { getContent } from "../services/contentService";
+import type { Content } from "../services/contentService";
+
 import { getVideos } from "../services/videoService";
+import type { Video } from "../services/videoService";
+
 import { getActivities } from "../services/activityService";
+import type { Activity } from "../services/activityService";
 
-export default function ModulePage(){
+import Layout from "../components/Layout";
+import VideoPlayer from "../components/VideoPlayer";
+import ActivityCard from "../components/ActivityCard";
+import Progress from "../components/Progress";
 
+import "./ModulePage.css";
+
+export default function ModulePage() {
   const { id } = useParams();
 
-  const [contents,setContents] = useState([]);
-  const [videos,setVideos] = useState([]);
-  const [activities,setActivities] = useState([]);
+  const [contents, setContents] = useState<Content[]>([]);
+  const [videos, setVideos] = useState<Video[]>([]);
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [selectedVideo, setSelectedVideo] = useState<string>("");
+  const [selectedActivity, setSelectedActivity] = useState<number | null>(null);
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (!id) return;
 
-    getContents(Number(id)).then(setContents);
-    getVideos(Number(id)).then(setVideos);
+    getContent(Number(id)).then(setContents);
+
+    getVideos(Number(id)).then((vids) => {
+      setVideos(vids);
+      if (vids.length > 0) setSelectedVideo(vids[0].url);
+    });
+
     getActivities(Number(id)).then(setActivities);
+  }, [id]);
 
-  },[])
+  const completedActivities = activities.filter((a) => a.completed).length;
 
-  return(
+  const progressPercent =
+    activities.length > 0
+      ? Math.round((completedActivities / activities.length) * 100)
+      : 0;
 
-    <div>
+  return (
+    <Layout>
+      <div className="module-page">
+        <section className="contents-section">
+          <h2>Conteúdos</h2>
 
-      <h2>Conteúdo</h2>
+          {contents.length === 0 && <p>Sem conteúdos disponíveis.</p>}
 
-      {contents.map((c:any)=>(
-        <p key={c.id}>{c.title}</p>
-      ))}
+          {contents.map((c) => (
+            <div key={c.id} className="content-card">
+              <h3>{c.title}</h3>
+              <p>{c.description}</p>
+            </div>
+          ))}
+        </section>
 
-      <h2>Vídeos</h2>
+        <section className="videos-section">
+          <h2>Vídeos</h2>
 
-      {videos.map((v:any)=>(
-        <iframe
-          key={v.id}
-          width="560"
-          height="315"
-          src={v.url}
-        />
-      ))}
+          {videos.length === 0 && <p>Sem vídeos disponíveis.</p>}
 
-      <h2>Atividades</h2>
+          {videos.map((v) => (
+            <VideoPlayer
+              key={v.id}
+              url={v.url}
+              title={v.title}
+              isSelected={selectedVideo === v.url}
+              onClick={() => setSelectedVideo(v.url)}
+            />
+          ))}
+        </section>
 
-      {activities.map((a:any)=>(
-        <div key={a.id}>
-          <p>{a.question}</p>
-        </div>
-      ))}
+        <section className="activities-section">
+          <h2>Atividades</h2>
 
-    </div>
+          {activities.length === 0 && <p>Sem atividades disponíveis.</p>}
 
-  )
+          {activities.map((a) => (
+            <ActivityCard
+              key={a.id}
+              title={a.question}
+              completed={a.completed}
+              isSelected={selectedActivity === a.id}
+              onClick={() => setSelectedActivity(a.id)}
+            />
+          ))}
+        </section>
 
+        <section className="progress-section">
+          <h2>Progresso</h2>
+
+          <Progress percent={progressPercent} />
+
+          <p>
+            {completedActivities} de {activities.length} concluídas (
+            {progressPercent}%)
+          </p>
+        </section>
+      </div>
+    </Layout>
+  );
 }
