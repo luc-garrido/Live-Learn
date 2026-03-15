@@ -13,9 +13,19 @@ class GroqSettings(BaseSettings):
     api_key: str
 
 
+class JWTSettings(BaseSettings):
+    model_config = SettingsConfigDict(
+    env_file=".env", env_prefix="JWT_", case_sensitive=False, extra="allow")
+    secret_key: str
+    algorithm: str
+    access_token_expire_minutes: int = 30
+    refresh_token_expire_days: int = 7
+
+
 class Settings(BaseSettings):
 
     database: Optional[SupaBaseSettings] = SupaBaseSettings()
     groq: Optional[GroqSettings] = GroqSettings()
+    jwt: Optional[JWTSettings] = JWTSettings()
 
 settings = Settings()
