@@ -7,6 +7,7 @@ from src.models.video import Video
 from src.models.content import Content
 from src.models.activity import Activity
 
+
 class SupabaseInterface(ABC):
     @abstractmethod
     def insert_user(self, user: User) -> List[dict]:
@@ -17,7 +18,19 @@ class SupabaseInterface(ABC):
         pass
 
     @abstractmethod
+    def get_user_by_id(self, user_id: str) -> Optional[User]:
+        pass
+
+    @abstractmethod
     def insert_track(self, track: Track) -> List[dict]:
+        pass
+
+    @abstractmethod
+    def get_tracks_by_user_id(self, user_id: str) -> List[Track]:
+        pass
+
+    @abstractmethod
+    def get_track_by_id(self, track_id: int) -> Optional[Track]:
         pass
 
     @abstractmethod
@@ -25,7 +38,19 @@ class SupabaseInterface(ABC):
         pass
 
     @abstractmethod
+    def get_modules_by_track_id(self, track_id: int) -> List[Module]:
+        pass
+
+    @abstractmethod
+    def get_module_by_id(self, module_id: int) -> Optional[Module]:
+        pass
+
+    @abstractmethod
     def insert_video(self, video: Video) -> List[dict]:
+        pass
+
+    @abstractmethod
+    def get_videos_by_module_id(self, module_id: int) -> List[Video]:
         pass
 
     @abstractmethod
@@ -33,7 +58,19 @@ class SupabaseInterface(ABC):
         pass
 
     @abstractmethod
+    def get_contents_by_module_id(self, module_id: int) -> List[Content]:
+        pass
+
+    @abstractmethod
     def insert_activity(self, activity: Activity) -> List[dict]:
+        pass
+
+    @abstractmethod
+    def get_activities_by_module_id(self, module_id: int) -> List[Activity]:
+        pass
+
+    @abstractmethod
+    def get_activity_by_id(self, activity_id: int) -> Optional[Activity]:
         pass
 
     @abstractmethod
