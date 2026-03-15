@@ -22,7 +22,27 @@ class CreateTrailUseCase:
     def execute(self, user_id: UUID, theme: str):
         print(f"[CREATE_TRAIL] Iniciando criação de trilha para o tema: {theme}")
         trail = self._generate_trail(theme)
+        # Salva a resposta da IA em um arquivo para debug
+        try:
+            with open("ia_trail_response.log", "a", encoding="utf-8") as f:
+                f.write(f"TEMA: {theme}\n{json.dumps(trail, ensure_ascii=False)}\n\n")
+        except Exception as e:
+            print(f"[CREATE_TRAIL][ERRO] Falha ao salvar log da IA: {e}")
+
         print(f"[CREATE_TRAIL] Resposta da IA (Groq) para o tema '{theme}': {trail}")
+        if (
+            not trail
+            or not isinstance(trail, dict)
+            or not trail.get("modulos")
+            or not isinstance(trail.get("modulos"), list)
+            or len(trail.get("modulos")) == 0
+        ):
+            print(
+                f"[CREATE_TRAIL][ERRO] IA não retornou módulos válidos para o tema '{theme}'. Resposta: {trail}"
+            )
+            raise InternalServerError(
+                "A IA não retornou módulos válidos para a trilha.", 500
+            )
         track_id = self._create_track(user_id, theme, trail)
         print(f"[CREATE_TRAIL] Track criada com id: {track_id}")
         self._process_modules(user_id, theme, trail.get("modulos"), track_id)

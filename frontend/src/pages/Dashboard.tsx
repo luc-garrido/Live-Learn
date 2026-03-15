@@ -67,11 +67,7 @@ export default function Dashboard() {
       }
 
       fetchTrilhas();
-      if (trackData) {
-        navigate(`/track/${trackId}`, { state: { aiModules: trackData.modulos } });
-      } else {
-        alert("Trilha criada, mas os módulos ainda estão sendo gerados. Volte ao dashboard em alguns segundos e tente novamente.");
-      }
+      navigate(`/track/${trackId}`);
     } catch (err) {
       console.error(err);
       alert("Erro ao gerar a trilha com IA");

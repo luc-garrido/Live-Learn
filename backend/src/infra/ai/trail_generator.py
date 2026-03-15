@@ -9,7 +9,7 @@ class TrailGeneratorService(TrailGeneratorInterface):
     def __init__(self):
         self.client = Groq(api_key=settings.groq.api_key)
         # self.model = "llama3-70b-8192"
-        self.model = "llama-3.1-8b-instant"
+        self.model = "llama-3.3-70b-versatile"
 
     def generate_trail(self, theme: str) -> dict:
         system_prompt = f"""
@@ -46,8 +46,20 @@ class TrailGeneratorService(TrailGeneratorInterface):
                 temperature=0.3,
                 response_format={"type": "json_object"},
             )
+            # Loga a resposta bruta da Groq
+            try:
+                with open("ia_trail_response.log", "a", encoding="utf-8") as f:
+                    f.write(f"[GROQ RAW RESPONSE] {theme}\n{str(response)}\n\n")
+            except Exception as log_e:
+                print(f"[ERRO LOG RAW] Falha ao salvar resposta bruta: {log_e}")
             return json.loads(response.choices[0].message.content)
         except Exception as e:
+            # Loga o erro detalhado
+            try:
+                with open("ia_trail_response.log", "a", encoding="utf-8") as f:
+                    f.write(f"[ERRO GROQ] TEMA: {theme}\n{str(e)}\n\n")
+            except Exception as log_e:
+                print(f"[ERRO LOG] Falha ao salvar erro detalhado: {log_e}")
             print(f"[ERRO ESQUELETO] {e}")
             return {"erro": "Falha ao gerar esqueleto do curso."}
 

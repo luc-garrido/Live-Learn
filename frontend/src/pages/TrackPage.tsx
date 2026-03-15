@@ -7,11 +7,11 @@ export default function TrackPage() {
   const { id } = useParams();
   const location = useLocation();
   const [modules, setModules] = useState<any[]>([]);
+  const [loadingModules, setLoadingModules] = useState(true);
 
   useEffect(() => {
-    if (location.state && location.state.aiModules) {
-      setModules(location.state.aiModules);
-    } else if (id) {
+    if (id) {
+      setLoadingModules(true);
       const token = localStorage.getItem("token");
       getModules(Number(id), token || undefined).then((res) => {
         if (Array.isArray(res)) {
@@ -21,14 +21,25 @@ export default function TrackPage() {
         } else {
           setModules([]);
         }
+        setLoadingModules(false);
+      }).catch(() => {
+        setModules([]);
+        setLoadingModules(false);
       });
     }
-  }, [id, location.state]);
+  }, [id]);
 
   return (
     <Layout>
       <h1>Módulos</h1>
-      {modules.length === 0 ? (
+      {loadingModules ? (
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 48 }}>
+          <div className="spinner" style={{
+            width: 48, height: 48, border: '6px solid #e0e7ff', borderTop: '6px solid #9135ff', borderRadius: '50%', animation: 'spin 1s linear infinite'
+          }} />
+          <style>{`@keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }`}</style>
+        </div>
+      ) : modules.length === 0 ? (
         <p>Sem módulos disponíveis</p>
       ) : (
         modules.map((m) => (
