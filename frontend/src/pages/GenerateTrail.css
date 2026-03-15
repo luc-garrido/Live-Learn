@@ -1,0 +1,47 @@
+.generateTrailContainer {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.generateForm {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.generateForm input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  flex: 1;
+}
+
+.generateForm button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.errorMessage {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.trilhaResult {
+  text-align: left;
+}
+
+.modulosList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.moduloCard {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 1rem;
+  background-color: #f9f9f9;
+}

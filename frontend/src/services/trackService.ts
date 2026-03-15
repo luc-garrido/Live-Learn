@@ -2,17 +2,15 @@ import { apiGet, apiPost } from "./api";
 
 export interface Track {
   id: number;
-  title: string;
-  description: string;
+  name: string;
+  user_id: string;
+  conteudo?: string;
 }
 
-export function getTracks(userId: number): Promise<Track[]> {
-  return apiGet(`/tracks?id=${userId}`);
+export function getTracks(token?: string): Promise<any> {
+  return apiGet(`/tracks/`, token);
 }
 
-export function createTrack(title: string, description: string): Promise<{ success: boolean; track: Track }> {
-  return apiPost("/criarTrilha", {
-    title,
-    description
-  });
+export function createTrack(theme: string, token?: string): Promise<any> {
+  return apiPost("/tracks/", { theme }, token);
 }

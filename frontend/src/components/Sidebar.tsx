@@ -8,7 +8,7 @@ export default function Sidebar() {
       <h1 className="logo">Live & Learn</h1>
       <nav>
         <Link to="/dashboard" className={pathname === "/dashboard" ? "active" : ""}>Dashboard</Link>
-        <Link to="/track/1" className={pathname.startsWith("/track") ? "active" : ""}>Trilhas</Link>
+        {/* Removido link de Trilhas do sidebar */}
       </nav>
     </aside>
   );

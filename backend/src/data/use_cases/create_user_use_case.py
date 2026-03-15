@@ -10,14 +10,12 @@ from src.models.user import User
 from src.models.base_response import BaseResponse
 
 
-
 class CreateUserUseCase:
     def __init__(self, db: SupabaseInterface, encryptor: Encryptor):
         self.__db = db
         self.__encryptor = encryptor
 
-    def execute(self, email: str, name: str, password: str):
-
+    def execute(self, email: str, password: str):
         if not self._is_valid_email(email):
             raise EmailException(ErrorEnum.EM0001.message, ErrorEnum.EM0001.code)
 
@@ -27,7 +25,7 @@ class CreateUserUseCase:
 
         hashed_password = self.__encryptor.hash_password(password)
         user_id = uuid4()
-        user = User(id=user_id, email=email, name=name, password=hashed_password)
+        user = User(id=user_id, email=email, password=hashed_password, name="Usuário")
 
         inserted = self.__db.insert_user(user)
         inserted_id = self._extract_first_id(inserted)
@@ -38,11 +36,10 @@ class CreateUserUseCase:
         return BaseResponse(
             success=True,
             message="Usuário criado com sucesso",
-
         )
 
     def _is_valid_email(self, email: str) -> bool:
-        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        email_regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         return re.match(email_regex, email) is not None
 
     def _extract_first_id(self, insert_result) -> Optional[int]:

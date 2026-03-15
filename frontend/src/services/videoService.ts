@@ -1,16 +1,13 @@
 // frontend/src/services/videoService.ts
+import { apiGet } from "./api";
+
 export interface Video {
   id: number;
-  title: string;
   url: string;
+  title?: string;
+  module_id: number;
 }
 
-export function getVideos(moduleId: number): Promise<Video[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve([
-      { id: 1, title: "Aula 1 - Introdução", url: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
-      { id: 2, title: "Aula 2 - Componentes", url: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
-      { id: 3, title: "Aula 3 - Props e State", url: "https://www.youtube.com/embed/dQw4w9WgXcQ" }
-    ]), 500);
-  });
+export function getVideos(moduleId: number, token?: string): Promise<any> {
+  return apiGet(`/modules/${moduleId}/videos`, token);
 }

@@ -48,15 +48,4 @@
 .iconBtn:hover {
   color: var(--color-secondary);
 }
-.avatar {
-  background: var(--color-success);
-  color: var(--color-primary);
-  font-weight: 700;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-}
+/* Removido .avatar */

@@ -4,6 +4,7 @@ from youtube_search import YoutubeSearch
 from src.config.config import settings
 from src.infra.ai.interface.trail_generator import TrailGeneratorInterface
 
+
 class TrailGeneratorService(TrailGeneratorInterface):
     def __init__(self):
         self.client = Groq(api_key=settings.groq.api_key)
@@ -43,7 +44,7 @@ class TrailGeneratorService(TrailGeneratorInterface):
                 messages=[{"role": "system", "content": system_prompt}],
                 model=self.model,
                 temperature=0.3,
-                response_format={"type": "json_object"}
+                response_format={"type": "json_object"},
             )
             return json.loads(response.choices[0].message.content)
         except Exception as e:
@@ -81,7 +82,7 @@ class TrailGeneratorService(TrailGeneratorInterface):
                 messages=[{"role": "system", "content": system_prompt}],
                 model=self.model,
                 temperature=0.5,
-                response_format={"type": "json_object"}
+                response_format={"type": "json_object"},
             )
             return json.loads(response.choices[0].message.content)
         except Exception as e:
@@ -98,10 +99,12 @@ class TrailGeneratorService(TrailGeneratorInterface):
             videos = []
             if busca:
                 for video in busca:
-                    videos.append({
-                        "url": f"https://www.youtube.com{video['url_suffix']}",
-                        "titulo": video['title'],
-                    })
+                    videos.append(
+                        {
+                            "url": f"https://www.youtube.com{video['url_suffix']}",
+                            "titulo": video["title"],
+                        }
+                    )
             return {"videos": videos}
         except Exception as e:
             print(f"[ERRO VIDEOS] {e}")
@@ -116,7 +119,11 @@ class TrailGeneratorService(TrailGeneratorInterface):
         Tema do Curso: {course_theme}
         Módulo Atual: {module_title}
 
-        Sua missão é gerar exercícios práticos para testar o conhecimento do aluno.
+        Sua missão é gerar EXERCÍCIOS DE MÚLTIPLA ESCOLHA para testar o conhecimento do aluno, MAS ATENÇÃO:
+        - Todas as perguntas e alternativas DEVEM ser EXCLUSIVAMENTE sobre o tema e o conteúdo do módulo atual.
+        - NÃO crie perguntas sobre programação, frameworks, tecnologia ou assuntos genéricos.
+        - Use apenas informações e conceitos relacionados ao tema do módulo.
+        - As perguntas devem ser didáticas, claras e relevantes para o conteúdo estudado.
 
         REGRA: Retorne APENAS JSON.
 
@@ -143,7 +150,7 @@ class TrailGeneratorService(TrailGeneratorInterface):
                 messages=[{"role": "system", "content": system_prompt}],
                 model=self.model,
                 temperature=0.5,
-                response_format={"type": "json_object"}
+                response_format={"type": "json_object"},
             )
             return json.loads(response.choices[0].message.content)
         except Exception as e:

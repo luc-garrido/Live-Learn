@@ -4,20 +4,28 @@ export interface User {
   email: string;
 }
 
-export function loginUser(email: string, password: string): Promise<{ success: boolean; user: User }> {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve({
-      success: true,
-      user: { userId: 1, name: "Isaque", email }
-    }), 500);
+
+export async function loginUser(email: string, password: string): Promise<{ success: boolean; access_token: string }> {
+  const response = await fetch("/auth/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
   });
+  if (!response.ok) throw new Error("Login inválido");
+  const data = await response.json();
+  if (!data.success || !data.data?.access_token) throw new Error("Token não recebido");
+  return { success: true, access_token: data.data.access_token };
 }
 
-export function createUser(name: string, email: string, password: string): Promise<{ success: boolean; user: User }> {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve({
-      success: true,
-      user: { userId: Math.floor(Math.random() * 1000), name, email }
-    }), 500);
+
+export async function createUser(email: string, password: string): Promise<{ success: boolean }> {
+  const response = await fetch("/users/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
   });
+  if (!response.ok) throw new Error("Falha ao cadastrar usuário");
+  const data = await response.json();
+  if (!data.success) throw new Error(data.message || "Erro ao cadastrar");
+  return { success: true };
 }

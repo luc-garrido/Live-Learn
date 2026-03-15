@@ -4,7 +4,10 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import TrackPage from "./pages/TrackPage";
 import ModulePage from "./pages/ModulePage";
-// import Profile from "./pages/Profile"; // Se existir
+import GenerateTrail from "./pages/GenerateTrail";
+
+
+
 
 function App() {
   return (
@@ -12,6 +15,7 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/generate-trail" element={<GenerateTrail />} />
       <Route path="/track/:id" element={<TrackPage />} />
       <Route path="/module/:id" element={<ModulePage />} />
       {/* <Route path="/profile" element={<Profile />} /> */}

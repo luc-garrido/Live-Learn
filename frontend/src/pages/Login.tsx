@@ -1,17 +1,24 @@
 import React, { useState } from "react";
+import { loginUser } from "../services/userService";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock de login: sempre "sucesso"
-    localStorage.setItem("ll_user_email", email);
-    navigate("/dashboard");
+    setError(null);
+    try {
+      const { access_token } = await loginUser(email, password);
+      localStorage.setItem("token", access_token);
+      navigate("/dashboard");
+    } catch (err) {
+      setError((err as Error).message || "Falha no login");
+    }
   };
 
   return (
@@ -56,6 +63,7 @@ export default function Login() {
                 required
               />
             </div>
+            {error && <div style={{ color: 'red', marginBottom: 10 }}>{error}</div>}
             <button className={styles.button + ' ' + styles.buttonPrimary} type="submit">Entrar</button>
           </form>
           <div className={styles.bottomText}>

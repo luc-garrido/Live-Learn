@@ -3,29 +3,38 @@ from typing import Any, Dict, List, Optional
 from uuid import UUID
 
 from src.errors import *
-from src.models  import *
+from src.models import *
 from src.models.base_response import BaseResponse
 from src.errors.enums.errors_enums import ErrorEnum
 from src.infra.ai.interface.trail_generator import TrailGeneratorInterface
 from src.infra.db.interface.supabase import SupabaseInterface
 
+
 class CreateTrailUseCase:
-    def __init__(self,db: SupabaseInterface, trail_generator: TrailGeneratorInterface,):
+    def __init__(
+        self,
+        db: SupabaseInterface,
+        trail_generator: TrailGeneratorInterface,
+    ):
         self.__db = db
         self.__trail_generator = trail_generator
 
     def execute(self, user_id: UUID, theme: str):
-
+        print(f"[CREATE_TRAIL] Iniciando criação de trilha para o tema: {theme}")
         trail = self._generate_trail(theme)
+        print(f"[CREATE_TRAIL] Resposta da IA (Groq) para o tema '{theme}': {trail}")
         track_id = self._create_track(user_id, theme, trail)
+        print(f"[CREATE_TRAIL] Track criada com id: {track_id}")
         self._process_modules(user_id, theme, trail.get("modulos"), track_id)
-
+        print(
+            f"[CREATE_TRAIL] Processamento de módulos finalizado para track_id: {track_id}"
+        )
         return BaseResponse(
             success=True,
             message="Trilha criada com sucesso",
             data={
                 "track_id": track_id,
-            }
+            },
         )
 
     def _generate_trail(self, theme: str) -> Dict[str, Any]:
@@ -34,7 +43,9 @@ class CreateTrailUseCase:
             raise InternalServerError(ErrorEnum.IA0001.message, ErrorEnum.IA0001.code)
         return trail
 
-    def _create_track(self, user_id: UUID, theme: str, trail: Dict[str, Any]) -> Dict[str, Any]:
+    def _create_track(
+        self, user_id: UUID, theme: str, trail: Dict[str, Any]
+    ) -> Dict[str, Any]:
         track_name = trail.get("descricao_curta") or theme
         track = Track(name=track_name, user_id=user_id, conteudo=theme)
 
@@ -53,9 +64,13 @@ class CreateTrailUseCase:
         modulos: List[Dict[str, Any]],
         track_id: int,
     ):
-        for modulo in modulos:
+        print(f"[CREATE_TRAIL] Iniciando processamento de módulos: {modulos}")
+        for modulo in modulos or []:
             module_title = modulo.get("titulo_modulo")
             order_index = modulo.get("order_index")
+            print(
+                f"[CREATE_TRAIL] Criando módulo: {module_title} (order_index={order_index})"
+            )
             self._create_module(user_id, track_id, theme, module_title, order_index)
 
     def _create_module(
@@ -66,20 +81,27 @@ class CreateTrailUseCase:
         module_title: str,
         order_index: Optional[int],
     ) -> Dict[str, Any]:
-
-        module_obj = Module(name=module_title, track_id=track_id, user_id=user_id, order_index=order_index)
+        print(f"[CREATE_TRAIL] Salvando módulo no banco: {module_title}")
+        module_obj = Module(
+            name=module_title,
+            track_id=track_id,
+            user_id=user_id,
+            order_index=order_index,
+        )
         inserted = self.__db.insert_module(module_obj)
         module_id = self._extract_first_id(inserted)
-
+        print(f"[CREATE_TRAIL] Módulo salvo com id: {module_id}")
         if not module_id:
             raise InternalServerError(ErrorEnum.DB0001.message, ErrorEnum.DB0001.code)
-
-
+        print(f"[CREATE_TRAIL] Gerando conteúdo para módulo: {module_title}")
         self._append_contents(theme, module_title, module_id)
+        print(f"[CREATE_TRAIL] Gerando vídeos para módulo: {module_title}")
         self._append_videos(theme, module_title, module_id)
+        print(f"[CREATE_TRAIL] Gerando exercícios para módulo: {module_title}")
         self._append_activities(theme, module_title, module_id)
 
-    def _append_contents(self,
+    def _append_contents(
+        self,
         theme: str,
         module_title: str,
         module_id: int,
@@ -124,7 +146,9 @@ class CreateTrailUseCase:
         module_id: int,
     ) -> None:
 
-        exercises_payload = self.__trail_generator.generate_questions_answers(theme, module_title)
+        exercises_payload = self.__trail_generator.generate_questions_answers(
+            theme, module_title
+        )
 
         if not isinstance(exercises_payload, dict):
             raise InternalServerError(ErrorEnum.IA0002.message, ErrorEnum.IA0002.code)

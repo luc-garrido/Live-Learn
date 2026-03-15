@@ -1,20 +1,29 @@
+
+
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createUser } from "../services/userService";
 import styles from "./Register.module.css";
 
 export default function Register() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert("As senhas não coincidem!");
       return;
     }
-    // Aqui você pode chamar a API de cadastro
-    alert(`Cadastro: ${name} - ${email}`);
+    try {
+      await createUser(email, password);
+      alert("Cadastro realizado com sucesso! Faça login.");
+      navigate("/");
+    } catch (err) {
+      alert("Erro ao cadastrar: " + (err as Error).message);
+    }
   };
 
   return (
@@ -42,14 +51,6 @@ export default function Register() {
           <div className={styles.formSubtitle}>Preencha os campos abaixo para começar a aprender.</div>
           <form onSubmit={handleRegister}>
             <div className={styles.formGroup}>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Nome completo"
-                value={name}
-                onChange={e => setName(e.target.value)}
-                required
-              />
               <input
                 className={styles.input}
                 type="email"
@@ -85,3 +86,4 @@ export default function Register() {
     </div>
   );
 }
+

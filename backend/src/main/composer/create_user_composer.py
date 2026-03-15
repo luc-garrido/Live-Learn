@@ -7,4 +7,8 @@ def create_user_composer():
     db = Supabase()
     encryptor = Encryptor()
     use_case = CreateUserUseCase(db, encryptor)
-    return use_case.execute
+
+    def execute(email, password):
+        return use_case.execute(email, password)
+
+    return execute

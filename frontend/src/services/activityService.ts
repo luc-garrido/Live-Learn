@@ -1,16 +1,14 @@
 // frontend/src/services/activityService.ts
+import { apiGet } from "./api";
+
 export interface Activity {
   id: number;
   question: string;
-  completed: boolean;
+  module_id: number;
+  answered?: boolean;
+  answers?: any;
 }
 
-export function getActivities(moduleId: number): Promise<Activity[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve([
-      { id: 1, question: "O que é React?", completed: true },
-      { id: 2, question: "O que são componentes?", completed: false },
-      { id: 3, question: "Como usar Props e State?", completed: false }
-    ]), 500);
-  });
+export function getActivities(moduleId: number, token?: string): Promise<any> {
+  return apiGet(`/modules/${moduleId}/activities`, token);
 }
