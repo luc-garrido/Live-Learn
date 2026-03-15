@@ -1,0 +1,39 @@
+.card {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(40,28,89,0.13);
+  padding: 1.3rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+.actionsRow {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+}
+.actionBtn {
+  flex: 1;
+  background: var(--color-secondary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.18s, transform 0.15s;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(40,28,89,0.07);
+}
+.actionBtn:hover {
+  background: #85C79A;
+  color: #22223b;
+  transform: translateY(-2px) scale(1.03);
+}

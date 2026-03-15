@@ -1,0 +1,27 @@
+.card {
+  background: var(--color-surface);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(40,28,89,0.07);
+  padding: 1.2rem 1rem;
+  margin-bottom: 1.2rem;
+  border-left: 6px solid var(--color-primary);
+  transition: box-shadow 0.18s;
+}
+.cardDone {
+  composes: card;
+  border-left: 6px solid var(--color-success);
+  opacity: 0.7;
+}
+.activities {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+.done {
+  color: var(--color-success);
+  font-weight: 600;
+}
+.pending {
+  color: var(--color-muted);
+}

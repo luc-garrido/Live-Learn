@@ -1,0 +1,53 @@
+.app-layout{
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:220px;
+  background:var(--color-primary);
+  color:white;
+  padding:25px;
+  display:flex;
+  flex-direction:column;
+  gap:30px;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.sidebar a{
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.sidebar a:hover{
+  opacity:0.8;
+}
+
+/* MAIN */
+
+.main-area{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+
+/* HEADER */
+
+.topbar{
+  background:white;
+  padding:18px 30px;
+  border-bottom:1px solid #eee;
+}
+
+/* CONTENT */
+
+.content{
+  padding:30px;
+}

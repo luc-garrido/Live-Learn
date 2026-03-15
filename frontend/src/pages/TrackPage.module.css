@@ -1,0 +1,304 @@
+.trackPageContainer {
+  display: flex;
+  gap: 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2.5rem 3rem 2rem 3rem;
+}
+
+.leftContent {
+  flex: 1.7;
+  min-width: 0;
+}
+
+.rightSidebar {
+  flex: 1;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.trackCard {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(40,28,89,0.13);
+  padding: 2.2rem 2.5rem 2.2rem 2.5rem;
+  margin-bottom: 2.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
+
+.trackInfo {
+  flex: 1;
+}
+
+.trackTitle {
+  font-size: 2.1rem;
+  font-weight: 800;
+  margin-bottom: 0.7rem;
+  color: #e6efb7;
+}
+
+.trackDesc {
+  font-size: 1.15rem;
+  color: #e6e6e6;
+  margin-bottom: 1.2rem;
+}
+
+.trackMeta {
+  font-size: 1rem;
+  color: #bfc9d1;
+  margin-bottom: 1.2rem;
+}
+
+.trackActions {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.trackBtn {
+  background: linear-gradient(90deg, #4e8d9c 60%, #7bb7c6 100%);
+  color: #151c23;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(40,28,89,0.07);
+  letter-spacing: 0.03em;
+  transition: background 0.18s, transform 0.15s;
+}
+.trackBtn:hover {
+  background: linear-gradient(90deg, #281c59 60%, #4e8d9c 100%);
+  color: #fff;
+  transform: translateY(-2px) scale(1.03);
+}
+
+.trackImage {
+  width: 220px;
+  height: 140px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #e6efb7;
+  box-shadow: 0 2px 12px rgba(40,28,89,0.10);
+}
+
+.quickFilters {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.quickFilterBtn {
+  background: #fff;
+  color: var(--color-primary);
+  border: 1.5px solid #e6efb7;
+  border-radius: 8px;
+  padding: 0.6rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+}
+.quickFilterBtn.active, .quickFilterBtn:hover {
+  background: #e6efb7;
+  color: var(--color-primary);
+  border: 1.5px solid #4e8d9c;
+}
+
+.moduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.moduleCard {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(40,28,89,0.07);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.moduleThumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #e6efb7;
+}
+
+.moduleInfo {
+  flex: 1;
+}
+
+.moduleTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: var(--color-primary);
+}
+
+.moduleDesc {
+  font-size: 1rem;
+  color: #4e8d9c;
+  margin-bottom: 0.7rem;
+}
+
+.moduleMeta {
+  font-size: 0.98rem;
+  color: #bfc9d1;
+  margin-bottom: 0.7rem;
+  display: flex;
+  gap: 1.2rem;
+}
+
+.moduleProgressBar {
+  width: 100%;
+  height: 8px;
+  background: #e6efb7;
+  border-radius: 6px;
+  margin-bottom: 0.7rem;
+  overflow: hidden;
+}
+.moduleProgress {
+  height: 100%;
+  background: linear-gradient(90deg, #4e8d9c 60%, #7bb7c6 100%);
+  border-radius: 6px;
+}
+
+.moduleActions {
+  display: flex;
+  gap: 1rem;
+}
+
+.moduleBtn {
+  background: #e6efb7;
+  color: var(--color-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.moduleBtn.active, .moduleBtn:hover {
+  background: #4e8d9c;
+  color: #fff;
+}
+
+.statusInProgress {
+  color: #4e8d9c;
+  font-weight: 700;
+}
+.statusNotStarted {
+  color: #bfc9d1;
+  font-weight: 600;
+}
+
+/* Sidebar widgets */
+.progressWidget {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 1.5rem 1.2rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 2px 12px rgba(40,28,89,0.07);
+}
+.progressTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+.progressCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #e6efb7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #4e8d9c;
+  margin-bottom: 0.5rem;
+}
+.progressText {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #4e8d9c;
+}
+
+.badgesWidget, .nextStepsWidget, .supportWidget {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 1.2rem 1.2rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 2px 12px rgba(40,28,89,0.07);
+}
+
+.badgeList {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.badgeIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #e6efb7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 2px 8px rgba(40,28,89,0.07);
+}
+
+.nextStepList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nextStepItem {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.nextStepThumb {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #e6efb7;
+}
+
+.nextStepInfo {
+  flex: 1;
+}
+
+.supportBtn {
+  background: #85c79a;
+  color: #151c23;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.7rem;
+  transition: background 0.18s, color 0.18s;
+}
+.supportBtn:hover {
+  background: #4e8d9c;
+  color: #fff;
+}

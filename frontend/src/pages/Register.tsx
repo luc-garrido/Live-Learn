@@ -1,17 +1,20 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import styles from "./Login.module.css";
+import { useState } from "react";
+import styles from "./Register.module.css";
 
-export default function Login() {
+export default function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock de login: sempre "sucesso"
-    localStorage.setItem("ll_user_email", email);
-    navigate("/dashboard");
+    if (password !== confirmPassword) {
+      alert("As senhas não coincidem!");
+      return;
+    }
+    // Aqui você pode chamar a API de cadastro
+    alert(`Cadastro: ${name} - ${email}`);
   };
 
   return (
@@ -22,8 +25,8 @@ export default function Login() {
             <span className={styles.logoMark}>L&L</span>
             <span className={styles.logoText}>Live & Learn</span>
           </div>
-          <h1>Bem-vindo de volta ao Live & Learn</h1>
-          <p>Aprenda intencionalmente. Viva com curiosidade. Retome sua jornada de aprendizado de onde parou.</p>
+          <h1>Crie sua conta no Live & Learn</h1>
+          <p>Comece sua jornada personalizada de aprendizado agora mesmo.</p>
           <div className={styles.iconsRow}>
             <span className={`${styles.iconCircle} ${styles.icon1}`}>🎓</span>
             <span className={`${styles.iconCircle} ${styles.icon2}`}>📖</span>
@@ -35,10 +38,18 @@ export default function Login() {
             <span className={styles.logoMark}>L&L</span>
             <span className={styles.logoText}>Live & Learn</span>
           </div>
-          <div className={styles.formTitle}>Acesse sua conta</div>
-          <div className={styles.formSubtitle}>Continue sua jornada personalizada de aprendizado com segurança.</div>
-          <form onSubmit={handleLogin}>
+          <div className={styles.formTitle}>Criar conta</div>
+          <div className={styles.formSubtitle}>Preencha os campos abaixo para começar a aprender.</div>
+          <form onSubmit={handleRegister}>
             <div className={styles.formGroup}>
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="Nome completo"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                required
+              />
               <input
                 className={styles.input}
                 type="email"
@@ -55,11 +66,19 @@ export default function Login() {
                 onChange={e => setPassword(e.target.value)}
                 required
               />
+              <input
+                className={styles.input}
+                type="password"
+                placeholder="Confirme a senha"
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+                required
+              />
             </div>
-            <button className={styles.button + ' ' + styles.buttonPrimary} type="submit">Entrar</button>
+            <button className={styles.button} type="submit">Cadastrar</button>
           </form>
           <div className={styles.bottomText}>
-            Não tem uma conta? <Link to="/register" className={styles.linkRegister}>Cadastre-se</Link>
+            Já tem uma conta? <a href="/" style={{ color: '#4e8d9c', textDecoration: 'none' }}>Entrar</a>
           </div>
         </div>
       </div>

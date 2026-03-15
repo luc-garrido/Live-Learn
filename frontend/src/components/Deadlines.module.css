@@ -1,0 +1,51 @@
+.card {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(40,28,89,0.13);
+  padding: 1.3rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #4e8d9c33;
+}
+.item:last-child {
+  border-bottom: none;
+}
+.deadlineTitle {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.deadlineMeta {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+}
+.date {
+  background: #4e8d9c;
+  color: #fff;
+  border-radius: 6px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.daysLeft {
+  color: #F7C873;
+  font-size: 0.95rem;
+  font-weight: 600;
+}

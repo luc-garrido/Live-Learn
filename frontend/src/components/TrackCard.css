@@ -1,0 +1,51 @@
+.track-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.track-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+}
+
+.track-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.meta {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 18px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress {
+  height: 100%;
+  background: var(--color-secondary);
+}
+
+.progress-text {
+  font-size: 13px;
+  color: #555;
+}
+
+.continue {
+  margin-top: 16px;
+  background: var(--color-primary);
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}

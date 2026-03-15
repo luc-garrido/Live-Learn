@@ -1,0 +1,26 @@
+.card {
+  background: var(--color-surface);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(40,28,89,0.07);
+  padding: 0.7rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+  border-left: 4px solid var(--color-secondary);
+}
+.done {
+  composes: card;
+  border-left: 4px solid var(--color-success);
+  opacity: 0.7;
+}
+.icon {
+  font-size: 1.3rem;
+}
+.title {
+  flex: 1;
+}
+.status {
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}

@@ -1,31 +1,83 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import Layout from "../components/Layout";
+import TrackCard from "../components/TrackCard";
+import ModuleCard from "../components/ModuleCard";
+import ActivityCard from "../components/ActivityCard";
+import QuickActions from "../components/QuickActions";
+import Deadlines from "../components/Deadlines";
+import ActivityFeed from "../components/ActivityFeed";
+import styles from "../styles/Dashboard.module.css";
+
+const tracks = [
+  {
+    id: 1,
+    name: "Python Completo",
+    type: "Trilha Completa",
+    progress: 60,
+    modules: [
+      {
+        id: 1,
+        name: "Introdução ao Python",
+        completed: true,
+        activities: [
+          { id: 1, type: "text" as const, title: "O que é Python?", completed: true },
+          { id: 2, type: "video" as const, title: "Por que aprender Python?", completed: true },
+          { id: 3, type: "activity" as const, title: "Primeiro código", completed: true },
+        ],
+      },
+      {
+        id: 2,
+        name: "Variáveis e Tipos",
+        completed: false,
+        activities: [
+          { id: 1, type: "text" as const, title: "Tipos de dados", completed: false },
+          { id: 2, type: "video" as const, title: "Variáveis na prática", completed: false },
+          { id: 3, type: "activity" as const, title: "Exercício prático", completed: false },
+        ],
+      },
+    ],
+  },
+];
 
 export default function Dashboard() {
-  const trilhas = [
-    { id: 1, nome: "Python Básico" },
-    { id: 2, nome: "React para Iniciantes" },
-    { id: 3, nome: "Lógica de Programação" }
-  ];
-
   return (
-    <div style={{ padding: "40px", maxWidth: "900px", margin: "auto" }}>
-      <h1>Minhas Trilhas</h1>
-      <div style={{ display: "flex", gap: "20px" }}>
-        {trilhas.map(t => (
-          <Link key={t.id} to={`/track/${t.id}`} style={{ textDecoration: "none" }}>
-            <div style={{
-              background: "white",
-              padding: "20px",
-              borderRadius: "12px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-              color: "var(--color-primary)"
-            }}>
-              {t.nome}
+    <Layout>
+      <div className={styles.dashboardGrid}>
+        <div className={styles.leftColumn}>
+          <section className={styles.tracksSection}>
+            <div className={styles.sectionHeader}>
+              <h1>Minhas Trilhas</h1>
+              <button className={styles.createBtn}>+ Nova Trilha</button>
             </div>
-          </Link>
-        ))}
+            <div className={styles.tracksGrid}>
+              {tracks.map((track) => (
+                <div key={track.id}>
+                  <TrackCard {...track} />
+                  <div style={{ marginTop: "1.5rem" }}>
+                    <h3 style={{ color: "var(--color-secondary)", marginBottom: 8 }}>
+                      Módulos
+                    </h3>
+                    {track.modules.map((mod) => (
+                      <div key={mod.id} style={{ marginBottom: 16 }}>
+                        <ModuleCard {...mod} />
+                        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                          {mod.activities.map((a) => (
+                            <ActivityCard key={a.id} {...a} />
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+        <aside className={styles.rightSidebar}>
+          <QuickActions />
+          <Deadlines />
+          <ActivityFeed />
+        </aside>
       </div>
-    </div>
+    </Layout>
   );
 }
