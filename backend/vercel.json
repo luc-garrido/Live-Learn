@@ -1,7 +1,15 @@
 {
-  "functions": {
-    "api/index.py": {
-      "runtime": "vercel-python@3.0.0"
+  "version": 2,
+  "builds": [
+    {
+      "src": "main.py",
+      "use": "@vercel/python"
     }
-  }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "main.py"
+    }
+  ]
 }
