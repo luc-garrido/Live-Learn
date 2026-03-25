@@ -1,6 +1,15 @@
+import sys
+import os
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+# --- ADICIONE ESTAS LINHAS AQUI ---
+# Pega o caminho da pasta onde este main.py está e avisa ao Python
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.append(current_dir)
+# ---------------------------------
 
 # MANTENHA as importações originais da IA
 try:
@@ -18,10 +27,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Adicione apenas esta rota de teste (não quebra nada)
+# Rota de teste
 @app.get("/api/v1/health")
 def health_check():
     return {"status": "online", "projeto": "Live-Learn"}
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8010)
