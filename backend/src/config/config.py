@@ -29,3 +29,11 @@ class Settings(BaseSettings):
     jwt: Optional[JWTSettings] = JWTSettings()
 
 settings = Settings()
+
+class JWTSettings(BaseSettings):
+    # O Pydantic usará estes valores se não encontrar nada no .env ou na Vercel
+    secret_key: str = "sua_chave_secreta_aqui" 
+    algorithm: str = "HS256"
+
+    class Config:
+        env_file = ".env"
