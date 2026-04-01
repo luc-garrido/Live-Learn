@@ -21,7 +21,6 @@ class JWTSettings(BaseSettings):
     access_token_expire_minutes: int = 30
     refresh_token_expire_days: int = 7
 
-
 class Settings(BaseSettings):
 
     database: Optional[SupaBaseSettings] = SupaBaseSettings()
@@ -32,7 +31,7 @@ settings = Settings()
 
 class JWTSettings(BaseSettings):
     # O Pydantic usará estes valores se não encontrar nada no .env ou na Vercel
-    secret_key: str = "sua_chave_secreta_aqui" 
+    secret_key: str = "574da575-5bda-4efe-bffa-474036620334" 
     algorithm: str = "HS256"
 
     class Config:
