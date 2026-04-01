@@ -31,7 +31,7 @@ settings = Settings()
 
 class JWTSettings(BaseSettings):
     # O Pydantic usará estes valores se não encontrar nada no .env ou na Vercel
-    secret_key: str = "583380303f424b530d57f193088bac100a3bc3e4e8b3485ffce42085ee101c85" 
+    secret_key: str = "574da575-5bda-4efe-bffa-474036620334" 
     algorithm: str = "HS256"
 
     class Config:
