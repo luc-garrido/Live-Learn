@@ -1,0 +1,21 @@
+import { Link, useLocation } from "react-router-dom";
+import "./Sidebar.css"; // Certifique-se que o arquivo no GitHub se chama Sidebar.css
+
+export default function Sidebar() {
+  const { pathname } = useLocation();
+
+  return (
+    <aside className="sidebar">
+      <h1 className="logo">Live & Learn</h1>
+      <nav>
+        <Link 
+          to="/dashboard" 
+          className={pathname === "/dashboard" ? "active" : ""}
+        >
+          Dashboard
+        </Link>
+        {/* Adicione outros links aqui se necessário */}
+      </nav>
+    </aside>
+  );
+}

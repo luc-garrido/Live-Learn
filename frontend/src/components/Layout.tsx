@@ -1,4 +1,7 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import type { ReactNode } from "react"; // Correção para TS1484
+import Sidebar from "./Sidebar";
+import "../styles/Global.css";
 
 function parseJwt(token: string): any {
   try {
@@ -7,21 +10,18 @@ function parseJwt(token: string): any {
     return null;
   }
 }
-import Sidebar from "./XSidebar";
-import "../styles/Global.css";
 
 type Props = {
   children: ReactNode;
 };
 
 export default function Layout({ children }: Props) {
-  const [userName, setUserName] = useState<string>("");
+  const [, setUserName] = useState<string>(""); //userName omitido com vírgula para evitar TS6133
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       const payload = parseJwt(token);
-      // Tenta pegar o nome, senão email, senão sub
       setUserName(payload?.name || payload?.email || payload?.sub || "Usuário");
     }
   }, []);
@@ -33,7 +33,7 @@ export default function Layout({ children }: Props) {
         <header className="header">
           <div className="profile">
             <div className="avatar"></div>
-            {/* Não exibe mais nome/id/email do usuário */}
+            {/* O nome era setado aqui, mas foi removido conforme seu código anterior */}
           </div>
         </header>
         <main className="content">{children}</main>
