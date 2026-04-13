@@ -7,7 +7,7 @@ function parseJwt(token: string): any {
     return null;
   }
 }
-import Sidebar from "./Sidebar";
+import Sidebar from "./XSidebar";
 import "../styles/Global.css";
 
 type Props = {
